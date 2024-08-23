@@ -21,4 +21,11 @@ public class Despesas {
     String descricao;
     String valor;
     String data;
+
+    public Despesas(DadosCadastroDespesas dados) {
+        this.nome=dados.nome();
+        this.descricao= dados.descricao();
+        this.valor=dados.valor();
+        this.data=dados.data();
+    }
 }
