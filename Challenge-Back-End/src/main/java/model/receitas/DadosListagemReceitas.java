@@ -1,4 +1,4 @@
-package model;
+package model.receitas;
 
 
 import java.time.LocalDate;
@@ -12,3 +12,4 @@ public record DadosListagemReceitas(
         this(receita.getDescricao(), receita.getValor(), LocalDate.from(receita.getData()));
     }
 }
+

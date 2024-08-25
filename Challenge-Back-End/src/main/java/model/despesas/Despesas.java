@@ -1,10 +1,13 @@
-package model;
+package model.despesas;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import model.receitas.DadosAtualizacaoReceitas;
+
+import java.time.LocalDateTime;
 
 @Entity(name = "Despesas")
 @Table(name = "despesas")
@@ -20,12 +23,27 @@ public class Despesas {
     String nome;
     String descricao;
     String valor;
-    String data;
+    LocalDateTime data;
 
     public Despesas(DadosCadastroDespesas dados) {
         this.nome=dados.nome();
         this.descricao= dados.descricao();
         this.valor=dados.valor();
         this.data=dados.data();
+    }
+
+    public void atualizarInformacoes(DadosAtualizacaoDespesas dados){
+        if (dados.descricao() != null){
+            this.descricao= dados.descricao();
+        }
+        if (dados.data() != null){
+            this.data= (dados.data());
+        }
+        if (dados.nome() != null){
+            this.nome= dados.nome();
+        }
+        if (dados.valor() != null){
+            this.valor= dados.valor();
+        }
     }
 }

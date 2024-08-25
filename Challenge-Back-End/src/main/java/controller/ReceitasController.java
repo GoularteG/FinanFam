@@ -1,10 +1,10 @@
 package controller;
 
 import jakarta.transaction.Transactional;
-import model.DadosAtualizacaoReceitas;
-import model.DadosCadastroReceitas;
-import model.DadosListagemReceitas;
-import model.Receitas;
+import model.receitas.DadosAtualizacaoReceitas;
+import model.receitas.DadosCadastroReceitas;
+import model.receitas.DadosListagemReceitas;
+import model.receitas.Receitas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +36,7 @@ public class ReceitasController {
                 receitas.stream()
                 .map(DadosListagemReceitas::new)
                 .toList();
-                
+
         return ResponseEntity.ok().build();
     }
 

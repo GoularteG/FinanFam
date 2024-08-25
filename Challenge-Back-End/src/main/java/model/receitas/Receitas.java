@@ -1,4 +1,4 @@
-package model;
+package model.receitas;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

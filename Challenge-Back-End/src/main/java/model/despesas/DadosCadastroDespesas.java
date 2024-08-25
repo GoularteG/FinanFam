@@ -1,6 +1,8 @@
-package model;
+package model.despesas;
 
 import jakarta.validation.constraints.NotBlank;
+
+import java.time.LocalDateTime;
 
 public record DadosCadastroDespesas(
         @NotBlank
@@ -10,6 +12,6 @@ public record DadosCadastroDespesas(
         @NotBlank
         String valor,
         @NotBlank
-        String data
+        LocalDateTime data
 ) {
 }
