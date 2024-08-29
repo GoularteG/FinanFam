@@ -1,4 +1,4 @@
-package model.despesas;
+package FanFam.api.model.despesas;
 
 import jakarta.validation.constraints.NotBlank;
 

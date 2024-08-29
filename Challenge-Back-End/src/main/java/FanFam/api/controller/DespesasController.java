@@ -1,24 +1,21 @@
-package controller;
+package FanFam.api.controller;
 
+import FanFam.api.model.despesas.*;
+import FanFam.api.model.receitas.DadosListagemReceitas;
 import jakarta.transaction.Transactional;
-import model.despesas.DadosAtualizacaoDespesas;
-import model.despesas.DadosCadastroDespesas;
-import model.despesas.DadosListagemDespesas;
-import model.despesas.Despesas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import repository.DespesasRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("despesas")
+@RequestMapping("/despesas")
 public class DespesasController {
 
     @Autowired
-    DespesasRepository repository;
+    private DespesasRepository repository;
 
     @PostMapping
     @Transactional
@@ -26,27 +23,27 @@ public class DespesasController {
         var despesas = new Despesas(dados);
         repository.save(despesas);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(new DadosDetalhamentoDespesas(despesas));
     }
 
     @GetMapping
     public ResponseEntity<List<DadosListagemDespesas>> listarDespesas() {
         List<Despesas> despesas = repository.findAll();
-        despesas.stream()
+        List<DadosListagemDespesas> dadosListagem = despesas.stream()
                 .map(DadosListagemDespesas::new)
                 .toList();
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(dadosListagem);
     }
 
     @GetMapping("/{id}")
-    @Transactional
     public ResponseEntity<List<DadosListagemDespesas>> listarDespesasPorId(@PathVariable Long id) {
         Optional<Despesas> despesas = repository.findById(id);
-        despesas.stream()
+        List<DadosListagemDespesas> dadosListagem = despesas.stream()
                 .map(DadosListagemDespesas::new)
                 .toList();
-        return ResponseEntity.ok().build();
+
+        return ResponseEntity.ok(dadosListagem);
     }
 
     @PutMapping("/{id}")
@@ -64,9 +61,12 @@ public class DespesasController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity exclirDespesas(@PathVariable Long id) {
-        repository.deleteById(id);
-
-
-        return ResponseEntity.noContent().build();
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+                return ResponseEntity.ok("Despesa " + id + " Excluída");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
+

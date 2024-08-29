@@ -1,7 +1,5 @@
-package repository;
+package FanFam.api.model.receitas;
 
-
-import model.receitas.Receitas;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,25 +1,21 @@
-package controller;
+package FanFam.api.controller;
 
+import FanFam.api.model.receitas.*;
 import jakarta.transaction.Transactional;
-import model.receitas.DadosAtualizacaoReceitas;
-import model.receitas.DadosCadastroReceitas;
-import model.receitas.DadosListagemReceitas;
-import model.receitas.Receitas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import repository.ReceitasRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api/receitas")
+@RequestMapping("/receitas")
 public class ReceitasController {
 
     @Autowired
-    ReceitasRepository repository;
+    private ReceitasRepository repository;
 
     @PostMapping
     @Transactional
@@ -27,27 +23,28 @@ public class ReceitasController {
         var receita= new Receitas(dados);
         repository.save(receita);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok((new DadosDetalhamentoReceitas(receita)));
     }
 
     @GetMapping
     public ResponseEntity <List<DadosListagemReceitas>> listarReceitas() {
         List<Receitas> receitas = repository.findAll();
-                receitas.stream()
+        List<DadosListagemReceitas> dadosListagem = receitas.stream()
                 .map(DadosListagemReceitas::new)
                 .toList();
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(dadosListagem);
     }
 
     @GetMapping("/{id}")
     @Transactional
     public ResponseEntity<List<DadosListagemReceitas>> listarReceitasPorId(@PathVariable Long id) {
         Optional<Receitas> receitas = repository.findById(id);
-                 receitas.stream()
+        List<DadosListagemReceitas> dadosListagem = receitas.stream()
                 .map(DadosListagemReceitas::new)
                 .toList();
-        return ResponseEntity.ok().build();
+
+        return ResponseEntity.ok(dadosListagem);
     }
 
     @PutMapping("/{id}")
@@ -65,11 +62,13 @@ public class ReceitasController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity exclir(@PathVariable Long id){
-        repository.deleteById(id);
-
-
-        return ResponseEntity.noContent().build();
+    public ResponseEntity excluir(@PathVariable Long id){
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return ResponseEntity.ok("Receita "+ id+ " Excluída");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     

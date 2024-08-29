@@ -1,6 +1,5 @@
-package repository;
+package FanFam.api.model.despesas;
 
-import model.despesas.Despesas;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

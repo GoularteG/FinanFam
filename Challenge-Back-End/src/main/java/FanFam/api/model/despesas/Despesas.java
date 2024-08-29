@@ -1,11 +1,12 @@
-package model.despesas;
+package FanFam.api.model.despesas;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import model.receitas.DadosAtualizacaoReceitas;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 
@@ -46,4 +47,6 @@ public class Despesas {
             this.valor= dados.valor();
         }
     }
+
+
 }

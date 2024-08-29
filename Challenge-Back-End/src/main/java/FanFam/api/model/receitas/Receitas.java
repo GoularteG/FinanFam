@@ -1,4 +1,4 @@
-package model.receitas;
+package FanFam.api.model.receitas;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
