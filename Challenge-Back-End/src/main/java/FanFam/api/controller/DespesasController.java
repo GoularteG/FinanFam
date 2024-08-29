@@ -37,13 +37,15 @@ public class DespesasController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<DadosListagemDespesas>> listarDespesasPorId(@PathVariable Long id) {
+    public ResponseEntity<DadosListagemDespesas> listarDespesasPorId(@PathVariable Long id) {
         Optional<Despesas> despesas = repository.findById(id);
-        List<DadosListagemDespesas> dadosListagem = despesas.stream()
-                .map(DadosListagemDespesas::new)
-                .toList();
 
-        return ResponseEntity.ok(dadosListagem);
+        if (despesas.isPresent()) {
+            DadosListagemDespesas dadosListagem = new DadosListagemDespesas(despesas.get());
+            return ResponseEntity.ok(dadosListagem);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping("/{id}")

@@ -12,6 +12,13 @@ public record DadosCadastroDespesas(
         @NotBlank
         String valor,
         @NotBlank
-        LocalDateTime data
+        LocalDateTime data,
+
+        Categoria categoria
 ) {
+        public DadosCadastroDespesas {
+                if (categoria == null) {
+                        categoria = Categoria.OUTRAS;
+                }
+        }
 }

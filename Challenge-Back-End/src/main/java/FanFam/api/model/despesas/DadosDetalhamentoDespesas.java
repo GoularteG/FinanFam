@@ -7,9 +7,10 @@ public record DadosDetalhamentoDespesas(Long id,
                                         String nome,
                                         String descricao,
                                         String valor,
-                                        LocalDateTime data) {
+                                        LocalDateTime data,
+                                        Categoria categoria) {
 
     public DadosDetalhamentoDespesas(Despesas despesas){
-        this(despesas.getId(), despesas.getNome(), despesas.getDescricao(), despesas.getValor(),despesas.getData());
+        this(despesas.getId(), despesas.getNome(), despesas.getDescricao(), despesas.getValor(),despesas.getData(),despesas.getCategoria());
     }
 }

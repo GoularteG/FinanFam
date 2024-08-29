@@ -1,0 +1,3 @@
+
+ALTER TABLE despesas
+ADD COLUMN categoria VARCHAR(255);

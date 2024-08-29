@@ -7,10 +7,11 @@ public record DadosListagemDespesas(
         String nome,
         String descricao,
         String valor,
-        LocalDate data) {
+        LocalDate data,
+        Categoria categoria) {
 
     public DadosListagemDespesas(Despesas despesas) {
-        this(despesas.getId(),despesas.getNome(), despesas.getDescricao(), despesas.getValor(), LocalDate.from(despesas.getData()));
+        this(despesas.getId(),despesas.getNome(), despesas.getDescricao(), despesas.getValor(), LocalDate.from(despesas.getData()), despesas.getCategoria());
     }
 }
 

@@ -8,5 +8,6 @@ public record DadosAtualizacaoDespesas(
         @NotBlank String nome,
         @NotBlank String descricao,
         @NotBlank String valor,
-        @NotBlank LocalDateTime data) {
+        @NotBlank LocalDateTime data,
+        Categoria categoria) {
 }
