@@ -25,7 +25,7 @@ public class Despesas {
     String descricao;
     String valor;
     LocalDateTime data;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Categoria categoria= Categoria.OUTRAS;
 
     public Despesas(DadosCadastroDespesas dados) {

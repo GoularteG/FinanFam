@@ -2,6 +2,7 @@ package FanFam.api.controller;
 
 import FanFam.api.model.despesas.*;
 import FanFam.api.model.receitas.DadosListagemReceitas;
+import FanFam.api.model.receitas.Receitas;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +28,16 @@ public class DespesasController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DadosListagemDespesas>> listarDespesas() {
-        List<Despesas> despesas = repository.findAll();
+    public ResponseEntity<List<DadosListagemDespesas>> listarDespesas(@RequestParam(required = false) String descricao) {
+        List<Despesas> despesas;
+        if (descricao != null) {
+            despesas = repository.findByDescricaoContainingIgnoreCase(descricao);
+        } else {
+            despesas = repository.findAll();
+        }
         List<DadosListagemDespesas> dadosListagem = despesas.stream()
                 .map(DadosListagemDespesas::new)
                 .toList();
-
         return ResponseEntity.ok(dadosListagem);
     }
 

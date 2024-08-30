@@ -1,6 +1,7 @@
 package FanFam.api.controller;
 
 import FanFam.api.model.receitas.*;
+import ch.qos.logback.core.pattern.util.RegularEscapeUtil;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +28,16 @@ public class ReceitasController {
     }
 
     @GetMapping
-    public ResponseEntity <List<DadosListagemReceitas>> listarReceitas() {
-        List<Receitas> receitas = repository.findAll();
+    public ResponseEntity<List<DadosListagemReceitas>> listarReceitas(@RequestParam(required = false) String descricao) {
+        List<Receitas> receitas;
+        if (descricao != null) {
+            receitas = repository.findByDescricaoContainingIgnoreCase(descricao);
+        } else {
+            receitas = repository.findAll();
+        }
         List<DadosListagemReceitas> dadosListagem = receitas.stream()
                 .map(DadosListagemReceitas::new)
                 .toList();
-
         return ResponseEntity.ok(dadosListagem);
     }
 
@@ -46,6 +51,7 @@ public class ReceitasController {
 
         return ResponseEntity.ok(dadosListagem);
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity atualizar(@PathVariable Long id, @RequestBody DadosAtualizacaoReceitas dados){
