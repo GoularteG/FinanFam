@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,15 @@ public class DespesasController {
     @PostMapping
     @Transactional
     public ResponseEntity cadastrarDespesas(@RequestBody DadosCadastroDespesas dados) {
+
+        var dataMes= dados.data().getMonthValue();
+        var dataAno = dados.data().getYear();
+        boolean despesasDuplicada = repository.existsByDescricaoAndDataMonthAndDataYear(dados.descricao(), dataMes, dataAno);
+
+        if (despesasDuplicada) {
+            return ResponseEntity.badRequest().body("Já existe uma receita com essa descrição no mesmo mês e ano.");
+        }
+
         var despesas = new Despesas(dados);
         repository.save(despesas);
 

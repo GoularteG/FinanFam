@@ -24,7 +24,8 @@ public class Despesas {
     String nome;
     String descricao;
     String valor;
-    LocalDateTime data;
+    @Column(name = "data", nullable = false)
+    private LocalDateTime data;
     @Enumerated(EnumType.STRING)
     private Categoria categoria= Categoria.OUTRAS;
 

@@ -21,6 +21,14 @@ public class ReceitasController {
     @PostMapping
     @Transactional
     public ResponseEntity cadastrarReceitas(@RequestBody DadosCadastroReceitas dados){
+        var dataMes = dados.data().getMonthValue();
+        var dataAno = dados.data().getYear();
+
+        boolean receitaDuplicada = repository.existsByDescricaoAndDataMonthAndDataYear(dados.descricao(), dataMes, dataAno);
+
+        if (receitaDuplicada) {
+            return ResponseEntity.badRequest().body("Já existe uma receita com essa descrição no mesmo mês e ano.");
+        }
         var receita= new Receitas(dados);
         repository.save(receita);
 
