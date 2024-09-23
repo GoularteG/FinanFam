@@ -24,7 +24,7 @@ Nas últimas semanas, trabalhei na segurança e no deploy da API:
 
 ## 🚀 Tecnologias Utilizadas
 - **Java** com **Spring Boot**
-- **PostgreSQL** para o banco de dados 🗄️
+- **MySQL** para o banco de dados 🗄️
 - **Heroku** para o deploy da aplicação 🌐
 - **JWT** para autenticação segura 🔐
 
