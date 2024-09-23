@@ -22,6 +22,5 @@ public class ResumoMesDTO {
     private BigDecimal totalReceitas;
     private BigDecimal totalDespesas;
     private BigDecimal saldoFinal;
-    private Map<Categoria, BigDecimal> totalGastoPorCategoria;
 
 }

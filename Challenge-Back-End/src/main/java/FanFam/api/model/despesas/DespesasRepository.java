@@ -22,8 +22,6 @@ public interface DespesasRepository extends JpaRepository<Despesas,Long> {
     @Query("SELECT COALESCE(SUM(d.valor), 0) FROM Despesas d WHERE YEAR(d.data) = :ano AND MONTH(d.data) = :mes")
     BigDecimal sumByAnoAndMes(@Param("ano") int ano, @Param("mes") int mes);
 
-    @Query("SELECT d.categoria, COALESCE(SUM(d.valor), 0) FROM Despesas d WHERE YEAR(d.data) = :ano AND MONTH(d.data) = :mes GROUP BY d.categoria")
-    Map<Categoria, BigDecimal> sumByCategoriaAndAnoAndMes(@Param("ano") int ano, @Param("mes") int mes);
 
 
 }
