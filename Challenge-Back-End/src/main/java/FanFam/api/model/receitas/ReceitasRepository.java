@@ -14,7 +14,7 @@ public interface ReceitasRepository extends JpaRepository<Receitas,Long> {
 
     List<Receitas> findByDescricaoContainingIgnoreCase(String descricao);
 
-    @Query("SELECT CASE WHEN COUNT(d) > 0 THEN true ELSE false END FROM Despesas d WHERE d.descricao = :descricao AND FUNCTION('MONTH', d.data) = :mes AND FUNCTION('YEAR', d.data) = :ano")
+    @Query("SELECT CASE WHEN COUNT(r) > 0 THEN true ELSE false END FROM Receitas r WHERE r.descricao = :descricao AND FUNCTION('MONTH', r.data) = :mes AND FUNCTION('YEAR', r.data) = :ano")
     boolean existsByDescricaoAndDataMonthAndDataYear(@Param("descricao") String descricao, @Param("mes") int mes, @Param("ano") int ano);
 
     @Query("SELECT COALESCE(SUM(r.valor), 0) FROM Receitas r WHERE YEAR(r.data) = :ano AND MONTH(r.data) = :mes")
