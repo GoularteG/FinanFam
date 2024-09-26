@@ -20,7 +20,7 @@ Na segunda semana, foi a vez de fazer melhorias e adicionar novas funcionalidade
 ### 3️⃣ e 4️⃣ Terceira e Quarta Semana: Autenticação e Deploy
 Nas últimas semanas, trabalhei na segurança e no deploy da API:
 - Implementação de um sistema de **autenticação com JWT** 🔒
-- Realizei o **deploy da API no Heroku** ☁️, permitindo que ela fique disponível na nuvem para ser utilizada por qualquer cliente.
+- Aprendi a Realizar o **deploy da API no Heroku** ☁️, permitindo que ela fique disponível na nuvem para ser utilizada por qualquer cliente.
 
 ## 🚀 Tecnologias Utilizadas
 - **Java** com **Spring Boot**
